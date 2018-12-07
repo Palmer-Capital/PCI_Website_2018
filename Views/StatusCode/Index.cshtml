@@ -1,0 +1,46 @@
+@model int
+@{
+    ViewData["Title"] = "Oops.";
+    var statusCode = Model;
+    var statusmessage = "";
+    switch (statusCode)
+    {
+        case 400:
+            statusmessage = "bad request: The request cannot be fulfilled due to bad syntax.";
+            break;
+        case 403:
+            statusmessage = "access is forbidden.";
+            break;
+        case 404:
+            statusmessage = "this page wasn't found. Is there a typo in your URL?";
+            break;
+        case 408:
+            statusmessage = "the server timed out waiting for the request.";
+            break;
+        case 500:
+            statusmessage = "internal Server Error - server was unable to finish processing the request.";
+            break;
+        default:
+            statusmessage = "...something we didn't expect happened.";
+            break;
+    }
+}
+
+    <div class="container-fluid" id="mid-home-bg">
+        <div class="container narrow padding-tb-lg padding-xs-tb-lg">
+            <div class="row">
+                    <h1>@ViewData["Title"]</h1>
+                    <h3 class="text-danger">Error @Model</h3>
+                    <h4>Something went wrong &ndash; @statusmessage</h4>
+                    <div class="row padding-tb-md">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 xs-no-padding">
+                            <p><a class="btn btn-palmer"role="button" asp-controller="Home" asp-action="Index">Go to Home Page &raquo;</a></p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+

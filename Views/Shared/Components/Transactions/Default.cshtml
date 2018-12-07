@@ -1,0 +1,50 @@
+@model IEnumerable<PCI_Website_2018.Models.WebsiteTransactions>
+@using System.Web;
+
+           @foreach (var item in Model) {  
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <h4>@Html.DisplayFor(modelItem => item.WtrName)</h4>
+                    <h5>@Html.DisplayFor(modelItem => item.WtrSize) in @Html.DisplayFor(modelItem => item.WtrCity) @Html.DisplayFor(modelItem => item.WtrState)</h5>
+                    @{
+                    var desc = item.WtrDescription;
+                    if (desc.Length > 250)
+                    {
+                        string descShort = desc.Substring(0, 225);
+                        <div class="text">
+                            <p class="short">@descShort</p>
+                            <p class="long">@desc</p>    
+                        </div>
+                    }
+                    else
+                    {
+                            <p>@desc</p>    
+                    }
+                    }
+                    @{
+                        var type = item.WtrType;
+                        if (type.Contains("Office"))
+                        {
+                            <p><a asp-controller="Transactions" asp-action="Office">View Office Transactions &raquo;</a></p>
+                        }
+                        else if (type.Contains("Retail"))
+                        {
+                             <p><a asp-controller="Transactions" asp-action="Retail">View Retail Transactions &raquo;</a></p>
+                        }
+                        else if (type.Contains("Industrial"))
+                        {
+                             <p><a asp-controller="Transactions" asp-action="Industrial">View Industrial Transactions &raquo;</a></p>
+                        }
+                        else if (type.Contains("Finance"))
+                        {
+                             <p><a asp-controller="Transactions" asp-action="Debt">View Structured Finance Transactions &raquo;</a></p>
+                        }
+                        else 
+                        {
+                             <p><a asp-controller="Transactions" asp-action="Index">View All Transactions &raquo;</a></p>
+                        }
+                    }
+                </div>
+            </div>
+            <hr class="hr-trans" />   
+            }

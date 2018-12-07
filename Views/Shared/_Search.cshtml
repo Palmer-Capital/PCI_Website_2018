@@ -1,0 +1,85 @@
+@using System.Web;
+@using Microsoft.Extensions.WebEncoders;
+@using System.Text.Encodings.Web;
+
+@{
+    ViewData["Title"] = "Search Results";
+    ViewData["SearchTitle"] = "PCI website";
+    //changes nav tree text
+}
+
+    @await Html.PartialAsync("_SearchJumbo")
+
+    <div class="container-fluid padding-tb" id="mid-home-bg">
+        <div class="container narrow xs-no-padding">
+
+            <!-- top nav tree ... -->
+            <div class="row padding-top-md">
+                <div class="col-lg-12">
+                    <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; @ViewData["Title"] </h5>
+                    <hr class="hr-trans" />
+                </div>
+            </div> 
+            
+            <div class="row">
+                <form class="navbar-form search searchResult" role="search" asp-controller="Home" asp-action="Search">
+                    <div class="form-group searchResult">
+                    <div class="input-group search searchResult">
+                        <input type="text" class="form-control search searchResult focus" value="@ViewData["Search"]" name="SearchString" />
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="material-icons icon-search">search</i></button>
+                        </span>
+                        </div>
+                    </div>
+                        @{                        
+                            var count = Convert.ToInt32(@ViewData["Count"]);
+                            if (count > 1) 
+                            {
+                                <h5 class="text-muted">@ViewData["Count"] results found in @ViewData["SearchTitle"].</h5>      
+                            }
+                            else
+                            {
+                                <h5 class="text-muted">@ViewData["Count"] result found in @ViewData["SearchTitle"].</h5>
+                            }
+                        }
+                </form>
+            </div>
+                @{
+                    //FIRM RESULTS
+                    var countF = Convert.ToInt32(@ViewData["FirmCount"]);
+                    if (countF > 0)
+                    {  
+                        @await Component.InvokeAsync("Firm", new { searchString = ViewData["Search"] } ); 
+                    }
+                }  
+
+                @{
+                    //CLIENTS RESULTS
+                    var countC = Convert.ToInt32(@ViewData["ClientsCount"]);
+                    if (countC > 0)
+                    { 
+                        @await Component.InvokeAsync("Clients", new { searchString = ViewData["Search"] } );    
+                    }
+                }
+
+                @{
+                    //REFERENCES RESULTS
+                    var countR = Convert.ToInt32(@ViewData["RefCount"]);
+                    if (countR > 0)
+                    {
+                        @await Component.InvokeAsync("ClientsReferences", new { searchString = ViewData["Search"] } );
+                    }
+                }    
+
+                @{
+                    //TRANSACTIONS RESULTS
+                    var countT = Convert.ToInt32(@ViewData["TransactionsCount"]);
+                    if (countT > 0)
+                    {
+                        @await Component.InvokeAsync("Transactions", new { searchString = ViewData["Search"] } );
+                    }
+                }
+            
+            @await Html.PartialAsync("_QuickLinks")
+        </div>
+    </div>

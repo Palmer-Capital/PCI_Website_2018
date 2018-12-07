@@ -1,0 +1,117 @@
+@model IEnumerable<PCI_Website_2018.Models.ClientList>
+@using System.Web;
+@{
+    ViewData["Title"] = "Clients";
+}
+
+        <div class="container-fluid padding-tb-xl" id="carousel-clients-bg">
+            <div id="myCarousel" class="carousel slide carousel-clients" data-interval="6000" data-ride="carousel" data-pause="null">
+                <h2 class="text-center text-white slab">Client Testimonials</h2>
+                <!-- Carousel indicators -->
+                <!-- <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>    -->
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner clients">
+                    <div class="item carousel-item active">
+                        <div class="img-box"><img src="~/images/client2.svg" alt=""></div>
+                        <p class="text-center">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet."</p>
+                        <h3 class="text-center"><i>Paula Wilson, VP of Operations</i></h3>
+                    </div>
+                    <div class="item carousel-item">
+                        <div class="img-box"><img src="~/images/client1.svg" alt=""></div>
+                        <p class="text-center">"Vestibulum quis quam ut magna consequat faucibus. Pellentesque eget nisi a mi suscipit tincidunt. Utmtc tempus dictum risus. Pellentesque viverra sagittis quam at mattis. Suspendisse potenti. Aliquam sit amet gravida nibh, facilisis gravida odio."</p>
+                        <h3 class="text-center"><i>Antonio Moreno, VP of Sales</i></h3>
+                    </div>
+                    <div class="item carousel-item">
+                        <div class="img-box"><img src="~/images/client5.svg" alt=""></div>
+                        <p class="text-center">"Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit."</p>
+                        <h3 class="text-center"><i>Michael Holz, CEO</i></h3>
+                    </div>
+                </div>
+                <!-- Carousel controls -->
+                <!-- <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+            </div>
+        </div>
+        <div class="container-fluid padding-tb border-strip">
+            <div class="row client padding-tb-md">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client2.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client6.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client8.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client4.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client5.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client1.svg" alt=""></div>
+            </div>
+        </div>
+        <div class="container-fluid" id="mid-home-bg">
+            <div class="container xs-no-padding">
+
+                <!-- nav tree ... -->
+                <div class="row padding-top-md">
+                    <div class="col-lg-12">
+                        <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; @ViewData["Title"]</a></h5>
+                        <hr class="hr-trans" />
+                    </div>
+                </div>
+
+                <div class="row padding-top-md">  
+                    <div class="col-lg-12">
+                        <h3>Full Client List:</h3>
+                        <hr class="hr-trans" />
+                    </div>
+                </div>
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model) {  
+                    i++;
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 padding-tb padding-xs-tb xs-font-lg">
+                        <h5>@Html.DisplayFor(modelItem => item.CrfCompany)</h5>
+                    </div>
+                    if (i % 2 == 0)
+                    {
+                        <div class="visible-xs">
+                            <div class="clearfix"></div>
+                            <hr />
+                        </div>
+                    }
+                    if (i % 4 == 0)
+                    {
+                        <div class="hidden-xs">
+                            <div class="clearfix"></div>
+                            <hr />
+                        </div>
+                    }
+                } 
+                <div class="clearfix">
+                </div>
+                <div class="padding-tb-md">
+                    <p><a class="btn btn-palmer"role="button" asp-controller="Home" asp-action="References">View References &raquo;</a></p>
+                </div>
+                
+            </div>
+        </div>
+
+@section Top {
+    <div class="top" title="scroll to top">
+    <button type="button" class="btn btn-sm btn-default">
+        <i class="material-icons icon-lg">arrow_upward</i>
+    </button>
+    </div>
+}
+
+@section Scripts {
+        <environment include="Development">
+        <script src="~/js/clients.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/clients.js" asp-append-version="true"></script>
+    </environment>
+}

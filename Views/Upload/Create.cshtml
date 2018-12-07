@@ -1,0 +1,35 @@
+@model PCI_Website_2018.Models.Upload
+
+@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<div class="container-fluid padding-tb-lg padding-lr-lg" id="mid-home-bg">
+
+    <h2>Upload Image</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" asp controller="Upload" asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <!-- <label asp-for="CarouselImg" class="control-label"></label> -->
+                    <input asp-for="CarouselImg" type="file" name="file" id="file" class="form-control" />
+                    <span asp-validation-for="CarouselImg" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input name="file" id="file" type="submit" value="Upload" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Input">Back to List</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

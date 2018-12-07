@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Palmer Capital";
+    ViewData["NavData"] = "About Us";
+}
+
+    <div class="jumbotron padding-tb-xl padding-xs-tb-lg text-center" id="jumbotron-about-bg">
+        <div class="container narrow">
+            <div class="row">
+                    <h1>@ViewData["Title"]</h1>
+                    <h4>Premier Advisor to Owners of Commercial Real Estate</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid padding-tb" id="mid-home-bg">
+        <div class="container narrow padding-xs-tb">
+            <!-- nav tree ... -->
+            <div class="row padding-top-md">
+                <div class="col-lg-12 nopadding">
+                    <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; <a asp-area="" asp-controller="Home" asp-action="About"></a>@ViewData["NavData"]</a></h5>
+                    <hr class="hr-trans" />
+                </div>
+            </div> 
+            
+            <div class="row padding-tb-md">
+                    <h2>Integrated Capital Markets Platform</h2>
+                    <p>Palmer Capital is an independent real estate capital markets firm that specializes in the acquisition, disposition, financing and capitalization of office, retail, and industrial properties.</p>
+                    <p>The firm has closed over $20 Billion in investment sales and finance transactions, primarily in the Western United States.</p>
+                    <p>Through its unparalleled experience in the commercial real estate industry, Palmer Capital is a premier advisor to owners of commercial real estate, creating value with comprehensive access to real estate capital sources and debt capital markets, with solutions tailored individually for each client.</p>
+                    <p>Palmer Capital's model has been constructed around a collaborative team of over 30 partners, industry veterans that have substantial experience in an advisory capacity and as principals in the commercial real estate industry. In this platform, Palmer Capital is able to leverage this expertise, both on the equity and credit side of the business, to the benefit of its clientele.</p>
+                    <p><a class="btn btn-palmer"role="button" asp-controller="Home" asp-action="Contact">Contact Us &raquo;</a></p>
+            </div>
+        </div>
+
+        <div class="row padding-top-md"></div> <!-- for extra space -->
+
+        </div><!--end narrow-->
+        <div class="photo-fullpage clearfix">
+            <div class="photo-vert"><img src="~/images/photo-vert.jpg" /></div>
+            <div class="photo-vert"><img src="~/images/photo-vert3.jpg" /></div>
+            <div class="photo-vert"><img src="~/images/photo-vert2.jpg" /></div>
+        </div>
+    </div><!-- end fluid-->
+
+    <div class="container-fluid" id="mid-home-bg">
+        <div class="container narrow padding-tb-md padding-xs-tb-md">
+            <div class="row">
+                    <h2>Investment Sales</h2>
+                    <p>Focused on selling office, industrial, and retail properties between Denver and the West Coast via direct relationships. In addition, Investment Partners facilitate introductions to capital sources through our Structured Finance and Equity Placement Partners.</p>
+                    <h2>Structured Finance</h2>
+                    <p>Focused on sourcing and structuring the most efficient debt capital market solutions for our clients for commercial real estate acquisitions, recapitalizations, and development. Structured Finance Partners actively maintain relationships with all segments of the market including insurance companies, pension capital, domestic banks, foreign banks, conduits (CMBS), mortgage REITs, private equity, and finance companies.</p>
+                    <h2>Equity Placement</h2>
+                    <p>Focused on sourcing and structuring asset level joint venture equity for acquisitions, recapitalizations, and new development. The Equity Placement Partners maintain close relationships with a wide variety of institutional and private equity sources including advisors, funds, insurance companies, and high net worth family offices.</p>
+                    <p><a class="btn btn-palmer"role="button" asp-controller="Transactions" asp-action="Index">View Transactions &raquo;</a></p>
+            </div>
+        </div>
+        <div class="row padding-top-md"></div> <!-- for extra space -->
+      </div>

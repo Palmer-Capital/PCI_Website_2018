@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="jumbotron xs-no-padding" id="jumbotron-home-bg">
+      <div class="container bg-black-trans-darker padding-tb padding-lr-md xs-add-padding">
+        <div class="row">
+              <div class="col-lg-6">
+                <h1>Integrated Capital Markets Platform</h1>
+              </div>
+              <div class="col-lg-1"></div>
+              <div class="col-lg-5">
+                <p>Palmer Capital is an independent real estate capital markets firm that specializes in the acquisition, disposition, financing and capitalization of office, retail, and industrial properties.</p>
+                <p><a class="btn btn-palmer-reverse btn-lg" role="button" asp-action="About">Learn more &raquo;</a></p>
+              </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid" id="mid-home-bg">
+        <div class="container padding-tb-lg xs-no-padding">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Investment Sales</h2>
+                    <p>Focused on selling office, industrial, and retail properties between Denver and the West Coast via direct relationships.</p>
+                    <p><a class="btn btn-palmer"role="button" asp-action="About">View details &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Structured Finance</h2>
+                    <p>Focused on sourcing and structuring the most efficient debt capital market solutions for our clients for commercial real estate acquisitions.</p>
+                    <p><a class="btn btn-palmer" role="button" asp-action="About">View details &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Equity Placement</h2>
+                    <p>Focused on sourcing and structuring asset level joint venture equity for acquisitions, recapitalizations, and new development.</p>
+                    <p><a class="btn btn-palmer" role="button" asp-action="About">View details &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid padding-tb-md border-strip">
+        <h4 class="text-white slab text-center">Some of our Valued Clients:</h4>
+        <p class="text-white text-center">Find out why many great firms are working with us.</p>
+        <div class="row padding-tb text-center">
+            <p><a class="btn btn-palmer-reverse" role="button" asp-action="Contact">Contact Us &raquo;</a></p>
+        </div>
+            <div class="row client padding-tb-md">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client2.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client6.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client8.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client4.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client5.svg" alt=""></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 vcenter"><img class="client-strip" src="~/images/client1.svg" alt=""></div>
+            </div>
+    </div>
+
+<!-- <div class="container-fluid hidden-xs"> -->
+    <div style='width: 1px; max-width: 100%; *width: 100%;'><iframe style='width: 100vw; height: 75px; pointer-events: none;' src='https://www.thefinancials.com/ShowPanel.aspx?pid=free&id=3057&bgcolor=222222&fontcolor=ffffff&fontsize=12.5&bordercolor=c0c0c0&numtileswide=0&mode=iframe&scrollSpeedFromZeroToTen=5' scrolling='no' marginheight='0' marginwidth='0' hspace='0' vspace='0' frameborder='no' allowtransparency='true'></iframe></div>
+<!-- </div> -->
+
+@section Scripts {
+        <environment include="Development">
+        <script src="~/js/clients.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/clients.js" asp-append-version="true"></script>
+    </environment>
+}

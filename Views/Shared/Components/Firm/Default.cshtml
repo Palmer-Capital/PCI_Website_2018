@@ -1,0 +1,51 @@
+@model IEnumerable<PCI_Website_2018.Models.Firm>
+    @using System.Web;    
+ 
+            @foreach (var item in Model) {
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="resume-header">@Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName)</h4>
+                    <h5>@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p><a href="mailto:@Html.DisplayFor(modelItem => item.Email)">@Html.DisplayFor(modelItem => item.Email)</a> | <a href="tel:@Html.DisplayFor(modelItem => item.Phone)">@Html.DisplayFor(modelItem => item.Phone)</a></p>
+                    @{
+                    var bio = item.Bio;
+                    if (bio.Length > 250)
+                    {
+                        string bioShort = bio.Substring(0, 224);
+                        <div class="text">
+                            <p class="short">@bioShort</p>
+                            <p class="long">@bio</p>    
+                        </div>
+                    }
+                    else
+                    {
+                            <p>@bio</p>    
+                    }
+                    }
+                    @{
+                        var type = item.Title;
+                        if (type.Contains("President"))
+                        {
+                            <p><a asp-controller="Firm" asp-action="Firm_President">View Bill's profile &raquo;</a></p>
+                        }
+                        else if (type.Contains("Investment"))
+                        {
+                            <p><a asp-controller="Firm" asp-action="Firm_IP">View All Investment Partners &raquo;</a></p>
+                        }
+                        else if (type.Contains("Finance"))
+                        {
+                            <p><a asp-controller="Firm" asp-action="Firm_Finance">View All Structured Finance Partners &raquo;</a></p>
+                        }
+                        else if (type.Contains("Graphic") || type.Contains("Production") || type.Contains("Logistics") || type.Contains("Tech"))
+                        {
+                            <p><a asp-controller="Firm" asp-action="Firm_Operations">View All Operations Partners &raquo;</a></p>
+                        }
+                        else 
+                        {
+                            <p><a asp-controller="Firm" asp-action="Firm">View All Partners &raquo;</a></p>
+                        }
+                    }
+                </div>  
+            </div>
+            <hr class="hr-trans" />
+                }  

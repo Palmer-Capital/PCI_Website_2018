@@ -1,0 +1,211 @@
+﻿@{
+    string AssemblyVersion = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+    string active = Convert.ToString(@ViewData["Active"]);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <title>@ViewData["Title"] - Palmer Capital Inc</title>
+    
+ 
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto+Slab|Roboto:400,500,700" rel="stylesheet">
+    @RenderSection("Scroll", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle menu" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="material-icons menu-toggle icon-lg text-white">menu</i>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/PCI_logo.png" class="logo" alt="" /></a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @{
+                        if (active == "About")
+                        {
+                            <li><a asp-controller="Home" asp-action="About" class="active">About Us</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                        }
+                    }
+                    <li class="dropdown">
+                        @{
+                            if (active == "Firm")
+                            {
+                                <a class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">The Firm<span class="caret"></span></a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">The Firm<span class="caret"></span></a>
+                            }
+                        }
+                            <ul class="dropdown-menu">
+                                <li><a asp-route-id="0" asp-controller="Firm" asp-action="Index">Full Team</a></li>
+                                <li><a asp-route-id="0" asp-controller="Firm" asp-action="Firm_President">President &amp; CEO</a></li>
+                                <li><a asp-route-id="0" asp-controller="Firm" asp-action="Firm_IP">Investment Partners</a></li>
+                                <li><a asp-route-id="0" asp-controller="Firm" asp-action="Firm_Finance">Structured Finance Partners</a></li>
+                                <li><a asp-route-id="0" asp-controller="Firm" asp-action="Firm_Operations">Operations</a></li>
+                            </ul>
+                    </li>
+                    <li class="dropdown">
+                        @{
+                            if (active == "Transactions")
+                            {
+                                <a class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transactions<span class="caret"></span></a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transactions<span class="caret"></span></a>
+                            }
+                        }
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Transactions" asp-action="Index">All Transactions</a></li>
+                                <li><a asp-controller="Transactions" asp-action="Office">Office</a></li>
+                                <li><a asp-controller="Transactions" asp-action="Industrial">Industrial</a></li>
+                                <li><a asp-controller="Transactions" asp-action="Retail">Retail</a></li>
+                                <li><a asp-controller="Transactions" asp-action="Debt">Debt/Equity Placement</a></li>
+                            </ul>
+                    </li>
+                    <li class="dropdown">
+                        @{
+                            if (active == "Clients")
+                            {
+                                <a class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clients<span class="caret"></span></a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clients<span class="caret"></span></a>
+                            }
+                        }
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Home" asp-action="Clients">All Clients</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="References">References</a></li>
+                            </ul>
+                    </li>
+                    @{
+                        if (active == "Contact")
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact" class="active">Contact Us</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                        }
+                    }
+                    <li class="visible-sm">
+                        <button type="button" class="navbar-toggle search">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="material-icons search-toggle icon-lg text-white">search</i>
+                        </button>
+                    </li>
+                    <li class="hidden-sm">
+                        <form class="navbar-form search" role="search" asp-controller="Home" asp-action="Search">
+                            <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control search" autocomplete="off" placeholder="Search..." name="SearchString" />
+                                <span class="input-group-btn">
+                                <button class="btn btn-default btn-default-search" type="submit" disabled><i class="material-icons icon-search">search</i></button>
+                                </span>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>  
+        </div>
+    </nav>
+
+    <!-- search dropdown for smaller screens -->
+    <div class="search-dropdown">
+        <form class="navbar-form search search-collapse" role="search" asp-controller="Home" asp-action="Search">
+            <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control search" autocomplete="off" onfocus="this.value=''" placeholder="Search..." name="SearchString" />
+                <span class="input-group-btn search">
+                <button class="btn btn-default btn-default-search" type="submit" disabled><i class="material-icons icon-search">search</i></button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- <partial name="_CookieConsentPartial" /> -->
+
+    <div class="container-fluid nopadding body-content">
+        @RenderBody()
+        <!-- <hr /> -->
+        
+        <div class="container-fluid nopadding" id="footer-bg">
+            <div class="container footer">
+                <div class="row">
+                    <footer>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <p>&copy; @DateTime.Now.Year Palmer Capital Inc</p>
+                        </div> 
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <nav class="navbar-right">
+                                <ul class="nav navbar-nav">
+                                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                                    <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                                    <li><a href="http://www.palmercapital.com/pci_travel.asp">Team Travel</a></li>
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                    </footer>
+                </div>
+                <div class="col-lg-12">
+                    <div id="assembly"><h6 class="text-right text-muted">version @AssemblyVersion</h6></div>
+                </div>
+            </div>
+        </div>    
+
+    </div> <!-- end main container-fluid div -->
+
+    @RenderSection("Top", required: false)
+
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

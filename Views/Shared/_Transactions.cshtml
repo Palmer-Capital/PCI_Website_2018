@@ -1,0 +1,278 @@
+@model IEnumerable<PCI_Website_2018.Models.WebsiteTransactions>
+@using System.Web;
+
+@{
+    //get type of transaction page ... for BUTTON LINKS / SORTING / & NAV TREE
+    //NOTE: passed from controller.
+    string type = Convert.ToString(@ViewData["Type"]);
+    //searchString to use in sorting on search results pages
+    string searchString = Convert.ToString(@ViewData["Search"]);
+    //Are you on a search results page? Boolean passed from controller and used here.
+    Boolean search = Convert.ToBoolean(ViewData["SearchSearch"]);
+    //Are there zero search results?
+    Boolean isNull = Convert.ToBoolean(ViewData["Null"]);
+
+    int route = 0;
+    switch(type)
+    {
+        case "All":
+            //if index/all page, need to change from "All" to "Index" for sorting/nav tree links
+            type = "Index";
+            //for route ids to send to controller for searching ...
+            route = 8;
+            //to get correct nav tree/button links etc if null search ...
+            if(isNull)
+            {
+                ViewData["SearchTitle"] = "All Transactions";
+            }
+            break;
+        case "Office":
+            route = 9;
+            if(isNull)
+            {
+                ViewData["SearchTitle"] = "Office Transactions";
+            }
+            break;
+        case "Industrial":
+            route = 10;
+            if(isNull)
+            {
+                ViewData["SearchTitle"] = "Industrial Transactions";
+            }
+            break;
+        case "Retail":
+            route = 11;
+            if(isNull)
+            {
+                ViewData["SearchTitle"] = "Retail Transactions";
+            }
+            break;
+        case "Debt":
+            //for route ids to send to controller for searching ...
+            route = 12;
+            //to get correct nav tree/button links etc if null search ...
+            if(isNull)
+            {
+                ViewData["SearchTitle"] = "Debt Transactions";
+            }
+            break;
+    }
+    if(search) //if search results page ...
+    {
+        type = "SearchTrans"; //filters transactions through search results only, and not entire type dataset - this is the action in the @Html.ActionLink ...
+    }
+    else //if not on search results page, don't want to use this parameter ...
+    {
+        searchString = null;
+    }
+}
+
+<div class="jumbotron padding-tb-xl padding-xs-tb-lg text-center" id="jumbotron-trans-bg">
+    <div class="container narrow">
+        <div class="row">
+            <h1>@ViewData["Title"]</h1>
+            <h4 class="text-capitalize">@ViewData["SearchTitle"]</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid padding-tb" id="mid-home-bg">
+   <div class="container narrow nopadding">
+
+        <!-- NAV TREE -->
+        @{
+            if(!search) //main nav tree        
+            {
+                <div class="row padding-tb-md">
+                    <div class="col-lg-12 xs-no-padding">
+                        <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; <a asp-controller="Transactions" asp-action="Index">Transactions</a> &nbsp;&rsaquo;&nbsp; @ViewData["SearchTitle"]</h5>
+                        <hr class="hr-trans" />
+                    </div>
+                </div>  
+            }
+            else //nav tree after searching (on search results page)
+            {
+                <div class="row padding-tb-md">
+                    <div class="col-lg-12 xs-no-padding">
+                        <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; <a asp-controller="Transactions" asp-action="Index">Transactions</a> &nbsp;&rsaquo;&nbsp; <a asp-area="" asp-controller="Transactions" asp-action=@type>@ViewData["SearchTitle"]</a> &nbsp;&rsaquo;&nbsp; @ViewData["Title"]</h5>
+                        <hr class="hr-trans" />
+                    </div>
+                </div>  
+            }
+        }
+        <!-- END NAV TREE -->
+
+        <!-- dynamic DRY buttons ... -->
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        @{
+            if (type == "Index")
+            {
+                <a class="btn btn-nav active" asp-controller="Transactions" asp-action="Index" id="Index">All</a>
+            }
+                else
+                {
+                    <a class="btn btn-nav" asp-controller="Transactions" asp-action="Index" id="Index">All</a>
+                }
+            if (type == "Office")
+            {
+                <a class="btn btn-nav active" asp-controller="Transactions" asp-action="Office" id="Office">Office</a>   
+            }
+                else
+                {
+                    <a class="btn btn-nav" asp-controller="Transactions" asp-action="Office" id="Office">Office</a>   
+                }
+            if (type == "Industrial") 
+            {
+                <a class="btn btn-nav active" asp-controller="Transactions" asp-action="Industrial" id="Industrial">Industrial</a>
+            }
+                else
+                {
+                    <a class="btn btn-nav" asp-controller="Transactions" asp-action="Industrial" id="Industrial">Industrial</a>                        
+                }
+            if (type == "Retail")
+            {
+                <a class="btn btn-nav active" asp-controller="Transactions" asp-action="Retail" id="Retail">Retail</a>
+            }
+                else
+                {
+                    <a class="btn btn-nav" asp-controller="Transactions" asp-action="Retail" id="Retail">Retail</a>
+                }
+            if (type == "Debt")
+            {
+                <a class="btn btn-nav active" asp-controller="Transactions" asp-action="Debt" id="Debt">Debt/Equity</a>  
+            }
+                else
+                {
+                    <a class="btn btn-nav" asp-controller="Transactions" asp-action="Debt" id="Debt">Debt/Equity</a>  
+                }
+        }
+        </div>
+
+        @{
+            var name = "Property " + @Html.DisplayNameFor(model => model.WtrName).ToString().Remove(0,3);
+            var city = @Html.DisplayNameFor(model => model.WtrCity).ToString().Remove(0,3);
+            var state = @Html.DisplayNameFor(model => model.WtrState).ToString().Remove(0,3);
+            var size = @Html.DisplayNameFor(model => model.WtrSize).ToString().Remove(0,3);
+            var trnType = @Html.DisplayNameFor(model => model.WtrType).ToString().Remove(0,3);
+        }
+
+        <div id="progress" class="padding-tb-md text-center">
+            <h5>It may take several seconds to load the transactions...</h5>
+            <img src="/images/loading.gif" alt="" />
+        </div>
+
+        <div id="result">
+            <!-- SEARCH FORMS -->
+            <div class="row padding-tb">
+            @{
+                if(!@search)
+                {
+                <form class="navbar-form search searchResult xs-no-padding" role="search" asp-controller="Transactions" asp-action="SearchTrans" asp-route-id="@route">
+                    <div class="form-group searchResult">
+                        <div class="input-group search searchResult">
+                            <input type="text" class="form-control search searchResult" autocomplete="off" placeholder="Search @ViewData["SearchTitle"]" name="SearchString"  />
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="material-icons icon-search">search</i></button>
+                            </span>
+                          </div>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <form class="navbar-form search searchResult xs-no-padding" role="search" asp-controller="Transactions" asp-action="SearchTrans">
+                        <div class="form-group searchResult">
+                        <div class="input-group search searchResult">
+                            <input type="text" class="form-control search searchResult focus" autocomplete="off" value="@ViewData["Search"]" name="SearchString" />
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="material-icons icon-search">search</i></button>
+                            </span>
+                            </div>
+                        </div>
+                        <!-- shows count of transactions -->
+                        @{
+                            if (!isNull)
+                            {
+                                var count = Convert.ToInt32(@ViewData["Count"]);
+                                if (count > 1) 
+                                {
+                                    <h5 class="text-muted">@ViewData["Count"] results found in @ViewData["SearchTitle"].</h5>      
+                                }
+                                else
+                                {
+                                    <h5 class="text-muted">@ViewData["Count"] result found in @ViewData["SearchTitle"].</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="text-muted">No results found in @ViewData["SearchTitle"].</h5>
+                            }
+                        }
+                    </form>
+                }
+            }
+            </div>
+
+            @{
+                if(!isNull)
+                {
+                    <div class="row trans-title">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-no-padding"><h4 id="caret-name">@Html.ActionLink(@name, @type, "Transactions", new { sortOrder = ViewBag.OrderSortParm, currentFilter = "Property Name", searchString = @searchString }, new { title="sort by name" })</h4></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 xs-no-padding xs-text-center"><h4 id="caret-city">@Html.ActionLink(@city, @type, "Transactions", new { sortOrder = ViewBag.OrderSortParm, currentFilter = "City", searchString = @searchString }, new { title="sort by city" })</h4></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 xs-no-padding xs-text-center"><h4 id="caret-state">@Html.ActionLink(@state, @type, "Transactions", new { sortOrder = ViewBag.OrderSortParm, currentFilter = "State", searchString = @searchString }, new { title="sort by state" })</h4></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 xs-no-padding xs-text-center"><h4 id="caret-size">@Html.ActionLink(@size, @type, "Transactions", new { sortOrder = ViewBag.OrderSortParm, currentFilter = "Size", searchString = @searchString }, new { title="sort by size" })</h4></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2 xs-no-padding xs-text-center"><h4 id="caret-type">@Html.ActionLink(@trnType, @type, "Transactions", new { sortOrder = ViewBag.OrderSortParm, currentFilter = "Type", searchString = @searchString }, new { title="sort by type" })</h4></div>
+                    </div>    
+
+                    <hr class="hr-trans" />
+
+                    @foreach (var item in Model) {
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-no-padding"><h5 class="trans-title">@Html.DisplayFor(modelItem => item.WtrName)</h5></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 xs-no-padding xs-text-center"><h5 class="trans-title">@Html.DisplayFor(modelItem => item.WtrCity)</h5></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 xs-no-padding xs-text-center"><h5 class="trans-title">@Html.DisplayFor(modelItem => item.WtrState)</h5></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 xs-no-padding xs-text-center"><h5 class="trans-title">@Html.DisplayFor(modelItem => item.WtrSize)</h5></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2 xs-no-padding xs-text-center o-hidden"><h5 class="trans-title">@Html.DisplayFor(modelItem => item.WtrType)</h5></div>
+                        </div>
+                        <hr class="hr-trans" />
+                        <div class="row padding-tb xs-no-padding">
+                            <div class="col-lg-12 col-md-12 xs-no-padding"><img src="@HttpUtility.UrlDecode(@Url.Content("~/images/" + item.WtrImage))" alt="" class="propImg" />@Html.DisplayFor(modelItem => item.WtrDescription)</div>
+                        </div>
+                        <hr class="hr-trans" />
+                    }        
+                }
+            }  
+
+    <!-- QUICK LINKS: -->
+    </div>
+        @{
+            if(isNull) //looks better with rule if no transactions ...
+            {
+            <div class="row">
+                    <div class="col-lg-12">
+                        @{
+                            if (ViewData["Search"] == null)
+                            {
+                                <h4>Please enter a search term.</h4>
+                                <h5>Tip: try searching a property name, city, or type.</h5>
+                            }
+                            else
+                            {
+                                <h4>Sorry, no results matching "@ViewData["Search"]" were found.</h4>
+                                <h5>Tip: try searching a property name, city, or type.</h5>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row padding-tb-md">
+                    <div class="col-lg-12">
+                        <hr class="hr-trans" />
+                    </div>
+                </div>
+            }
+        }
+        @await Html.PartialAsync("_Quicklinks")
+    </div>
+</div>
+
+

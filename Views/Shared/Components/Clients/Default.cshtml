@@ -1,0 +1,13 @@
+@model IEnumerable<PCI_Website_2018.Models.ClientList>
+@using System.Web;
+
+        
+            @foreach (var item in Model) {  
+            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                            <h4>@Html.DisplayFor(modelItem => item.CrfCompany)</h4>
+                            <p><a asp-controller="Home" asp-action="Clients">View All Clients &raquo;</a></p>
+                        </div>
+            </div>
+            <hr class="hr-trans" />   
+            }

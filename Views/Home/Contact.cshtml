@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Contact Palmer Capital";
+    ViewData["NavData"] = "Contact Us";
+}
+
+        <div class="jumbotron padding-tb-xl padding-xs-tb text-center" id="jumbotron-contact-bg">
+            <div class="container narrow">
+                <div class="row">
+                    <h1>@ViewData["Title"]</h1>
+                    <h4>Let Us Know How We Can Help</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid padding-tb" id="mid-home-bg">
+        <div class="container narrow padding-xs-tb-lg">
+
+            <!-- nav tree ... -->
+            <div class="row padding-top-md">
+                <div class="col-lg-12 nopadding">
+                    <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; @ViewData["NavData"]</a></h5>
+                    <hr class="hr-trans" />
+                </div>
+            </div> 
+
+            <div class="row padding-tb-md">
+                <div class="col-md-4 xs-font-lg nopadding">  
+                    <h3>Palmer Capital Inc:</h3>
+                    <address>
+                        <p>1478 Stone Point Drive, 250<br />
+                        Roseville, California 95661</p>
+                        <abbr title="Phone">P: </abbr>
+                        <a href="tel:916-462-6300">&nbsp;916-462-6300</a><br />
+                        <abbr title="Fax">F: </abbr>
+                        <a href="tel:916-462-6262">&nbsp;916-462-6262</a>
+                    </address>
+                </div>
+                <div class="col-md-4 xs-font-lg nopadding">  
+                    <address>
+                        <h3>Contact Us Directly:</h3>
+                            <a asp-controller="Firm" asp-action="Firm_President" asp-route-id="1">President &amp; CEO</a><br />
+                            <a asp-controller="Firm" asp-action="Firm_IP" asp-route-id="1">Investment Partners</a><br />
+                            <a asp-controller="Firm" asp-action="Firm_Finance" asp-route-id="1">Structured Finance Partners</a><br />
+                            <a asp-controller="Firm" asp-action="Firm_Operations" asp-route-id="1">Operations</a>
+                    </address>  
+                </div>
+                <div class="col-md-4 xs-font-lg nopadding">  
+                    <address>
+                        <h3>Additional Info:</h3>
+                            <a href="http://www.palmercapital.com/googlemaps.html" target="_blank">Map</a><br />
+            				<a target="_blank" class="darkBlue" href="https://roundme.com/tour/248326/view/727101">PCI Tour</a>
+                    </address>
+                </div>
+            </div>
+
+            <div class="row padding-top-md"></div><!--extra spacing -->
+
+        </div>
+      </div>
+
+
+
+

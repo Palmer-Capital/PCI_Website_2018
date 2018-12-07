@@ -1,0 +1,41 @@
+@model IEnumerable<PCI_Website_2018.Models.Upload>
+
+@{
+    ViewData["Title"] = "Database View";
+}
+
+<div class="container-fluid padding-tb-lg padding-lr-lg" id="mid-home-bg">
+
+<h2>Database View</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarouselImg)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarouselImg)
+                </td>
+                <td>
+                    // <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    // <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    // <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
+                    <a asp-action="Create">Create</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
+
+

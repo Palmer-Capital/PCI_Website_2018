@@ -1,0 +1,78 @@
+@model IEnumerable<PCI_Website_2018.Models.Firm>
+
+@{
+    string str = Convert.ToString(@ViewData["Contact"]);
+}
+
+
+ 
+<div class="container-fluid padding-tb" id="mid-home-bg">
+   <div class="container narrow">
+
+     <!-- nav tree ... -->
+     <div class="row padding-tb-md">
+         <div class="col-lg-12 xs-no-padding">
+             @{
+                 if (str == "") //if routed from main nav
+                 {
+                    <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; <a asp-area="" asp-controller="Firm" asp-action="Index">The Firm</a> &nbsp;&rsaquo;&nbsp; @ViewData["SubTitle"]</h5>
+                    <hr class="hr-trans" />
+                 }
+                 else //if routed from contact us or quicklinks
+                 {
+                    <h5 class="text-muted"><a asp-area="" asp-controller="Home" asp-action="Index">Palmer Capital Inc</a> &nbsp;&rsaquo;&nbsp; <a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a> &nbsp;&rsaquo;&nbsp; @ViewData["SubTitle"]</h5>
+                    <hr class="hr-trans" />
+                 }
+             }
+         </div>
+     </div>  
+
+     <div class="btn-group btn-group-justified margin-tb" role="group" aria-label="...">
+             @{
+                 if (str == "") //if routed from main nav
+                 {
+                    <a class="btn btn-nav" asp-route-id="0" asp-controller="Firm" asp-action="Index" id="Index">Full Team</a>
+                    <a class="btn btn-nav" asp-route-id="0" asp-controller="Firm" asp-action="Firm_President" id="Firm_President">President</a>
+                    <a class="btn btn-nav" asp-route-id="0" asp-controller="Firm" asp-action="Firm_IP" id="Firm_IP">Investments</a>
+                    <a class="btn btn-nav" asp-route-id="0" asp-controller="Firm" asp-action="Firm_Finance" id="Firm_Finance">Finance</a>
+                    <a class="btn btn-nav" asp-route-id="0" asp-controller="Firm" asp-action="Firm_Operations" id="Firm_Operations">Operations</a>
+                 }
+                 else //if routed from contact us or quicklinks
+                 {
+                    <a class="btn btn-nav" asp-route-id="1" asp-controller="Firm" asp-action="Index" id="Index">Full Team</a>
+                    <a class="btn btn-nav" asp-route-id="1" asp-controller="Firm" asp-action="Firm_President" id="Firm_President">President</a>
+                    <a class="btn btn-nav" asp-route-id="1" asp-controller="Firm" asp-action="Firm_IP" id="Firm_IP">Investments</a>
+                    <a class="btn btn-nav" asp-route-id="1" asp-controller="Firm" asp-action="Firm_Finance" id="Firm_Finance">Finance</a>
+                    <a class="btn btn-nav" asp-route-id="1" asp-controller="Firm" asp-action="Firm_Operations" id="Firm_Operations">Operations</a>
+                 }
+             }
+           
+
+       </div>
+    
+
+    <div id="progress" class="padding-tb-md text-center">
+        <img src="/images/loading.gif" alt="" />
+    </div>
+
+    <div id="result">
+        <hr />
+        @foreach (var item in Model) 
+            {
+                    <div class="row">
+                        <!-- pictures ... if we ever add back..change cols below from 12 to 9 (e.g. col-lg-12 TO col-lg-9) -->
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-3 text-center">
+                            <img src="@Url.Content("~/images/TeamPhotos/" + item.ImgURL)" class="resume-photo" />
+                        </div> -->
+                        <div class="col-lg-12 col-md-12 col-sm-12 xs-no-padding">
+                            <h4 class="resume-header">@Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName) &ndash; @Html.DisplayFor(modelItem => item.Title)</h4>
+                            <p><a href="mailto:@Html.DisplayFor(modelItem => item.Email)">@Html.DisplayFor(modelItem => item.Email)</a></p>
+                            <p><a href="tel:@Html.DisplayFor(modelItem => item.Phone)">@Html.DisplayFor(modelItem => item.Phone)</a></p>
+                            <p>@Html.DisplayFor(modelItem => item.Bio)</p>
+                            <h5>@Html.DisplayFor(modelItem => item.College)</h5>
+                            <h6>@Html.DisplayFor(modelItem => item.Degree)</h6>
+                        </div>
+                    </div>  <!-- end row -->
+                    <hr />
+            }   
+    </div>  <!-- end result -->
